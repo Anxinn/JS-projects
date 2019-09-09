@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>代码格式录入</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        img {
+            position: absolute;
+            width: 600px;
+            left: 0;
+            top: 0;
+            height: 300px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .wrap {
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            margin: 100px auto;
+        }
+
+        .gallery {
+            position: relative;
+            width: 600px;
+            height: 300px;
+        }
+
+        .tab {
+            width: 600px;
+            display: flex;
+            height: 30px;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        span {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgb(150, 145, 145);
+            margin: 10px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .cur {
+            background: rgb(161, 155, 155);
+        }
+
+        .para {
+            width: 600px;
+            height: 200px;
+            font-size: 32px;
+            color: #fff;
+            word-wrap: break-word;
+            text-align: center;
+            font-weight: lighter;
+        }
+
+        .para1 {
+            text-indent: -9999px;
+            display: none;
+        }
+
+        img.cur {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="para1"></p>
+    <div class="wrap">
+        <p class="para"></p>
+        <div class="gallery">
+            <img class="cur" src="img/1.jpg">
+            <img src="img/2.jpg">
+            <img src="img/3.jpg">
+            <img src="img/4.jpg">
+        </div>
+        <div class="tab">
+            <span class="cur"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script>
+        var para = document.querySelector('.para');
+        var para1 = document.querySelector('.para1');
+        var aSpan = document.querySelectorAll('span');
+        var aImg = document.querySelectorAll('img');
+        var arr = [
+            'today is Monday',
+            'tomorrow is Tuesday',
+            'the day after tomorrow is Wednesday',
+            'the day before yesterday is Saturday'
+        ]
+        var index = 0;
+        var timer = null;
+        for (var i = 0; i < aSpan.length; i++) {
+            aSpan[i].index = i;
+            aSpan[i].onclick = function () {
+                for (var i = 0; i < aSpan.length; i++) {
+                    aSpan[i].classList.remove('cur');
+                    aImg[i].classList.remove('cur');
+                }
+                this.classList.add('cur');
+                aImg[this.index].classList.add('cur');
+
+                para.innerHTML = '';
+                para1.innerHTML = arr[this.index];
+                start();
+            }
+        }
+
+        function doMove() {
+            if (para1.innerHTML == '') {
+                clearInterval(timer);
+                para.innerHTML = para.innerHTML.replace(/_/g, '');
+                return;
+            }
+            var txt = para.innerHTML;
+            var str = para1.innerHTML.toString().split('');
+            var a = str.shift();
+            txt += (a + '_');
+            para.innerHTML = txt.slice(0, -1).replace(/_/g, '') + '_';
+            para1.innerHTML = str.join('');
+        }
+
+        function start() {
+            clearInterval(timer);
+            timer = setInterval(function () {
+                doMove();
+            }, 50)
+        }
+    </script>
+
+</body>
+
+</html>
