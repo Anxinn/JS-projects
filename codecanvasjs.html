@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .canvas {
+            border: 1px solid #000;
+            border-radius: 4px;
+            background: #fff;
+            margin: 100px auto;
+            display: block;
+        }
+
+        body {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        button {
+            width: 100px;
+            height: 40px;
+            border-radius: 10px;
+            background: green;
+            color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: block;
+            margin: 100px auto;
+        }
+
+        p {
+            color: #fff;
+            text-align: center;
+            font-size: 50px;
+            margin-top: 100px;
+            text-transform: uppercase;
+            font-weight: lighter;
+            background: linear-gradient(to right, rgb(231, 13, 177), rgb(4, 219, 51));
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+        }
+    </style>
+</head>
+
+<body>
+    <p>canvas draw code</p>
+    <canvas class="canvas"></canvas>
+    <button type="button">换一张</button>
+    <script>
+        window.onload = function () {
+            /** @type {HTMLCanvasElement} */
+            var canvas = document.querySelector('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = 200;
+            canvas.height = 100;
+            var aLine = 8;
+            var aDot = 20;
+            var letter = 4;
+            var pi = Math.PI;
+            var btn = document.querySelector('button');
+            var arr = [
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+                'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+            ]
+
+            function doRandom(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function randomColor() {
+                return 'rgb(' + doRandom(0, 255) + ',' + doRandom(0, 255) + ',' + doRandom(0, 255) + ',' + 0.1 *
+                    doRandom(1, 10) + ')';
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, 200, 100);
+                for (var i = 0; i < aLine; i++) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = randomColor();
+                    ctx.moveTo(doRandom(1, 200), doRandom(1, 100));
+                    ctx.lineTo(doRandom(1, 200), doRandom(1, 100));
+                    ctx.stroke();
+                    // draw line
+
+                }
+                for (var i = 0; i < aDot; i++) {
+                    ctx.beginPath();
+                    ctx.fillStyle = randomColor();
+                    ctx.arc(doRandom(1, 200), doRandom(1, 200), 1, 0, pi * 2, true);
+                    ctx.fill();
+                    // draw dot
+                }
+                
+                for (var i = 0; i < letter; i++) {
+                    ctx.font = '50px sans-serif';
+                    ctx.fillStyle = randomColor();
+                    ctx.fillText(arr[doRandom(0, 35)], 50 * (i + 0.2), 70);
+                    // draw letter
+                }
+            }
+            draw();
+            // 自动生成code
+            btn.onclick = function () {
+                draw();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
