@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 400px;
+            border: 1px solid red;
+            padding: 20px;
+            margin: 100px auto;
+        }
+
+        .wrap>* {
+            cursor: pointer;
+        }
+
+        .top {
+            height: 50px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .item {
+            height: 100px;
+            background: gray;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .checked {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="top item">
+            <input type="checkbox">
+        </div>
+        <div class="con">
+            <div class="item">
+                <input type="checkbox">
+            </div>
+            <div class="item">
+                <input type="checkbox">
+            </div>
+            <div class="item">
+                <input type="checkbox">
+            </div>
+            <div class="item">
+                <input type="checkbox">
+            </div>
+        </div>
+    </div>
+    <script>
+        var oTop = document.querySelector('.top');
+        var aInput = document.querySelectorAll('.item input');
+        var aItem = document.querySelectorAll('.item');
+        for (var i = 0; i < aItem.length; i++) {
+            aItem[i].onclick = function () {
+                var oInput = this.querySelector('input');
+                !oInput.checked ? this.classList.add('checked') : this.classList.remove('checked');
+                oInput.checked = !oInput.checked;
+            }
+        }
+        oTop.onclick = function () {
+            var tInput = this.querySelector('input');
+            for (var i = 0; i < aItem.length; i++) {
+                !tInput.checked ? aItem[i].classList.add('checked') :
+                    aItem[i].classList.remove('checked');
+            }
+            tInput.checked = !tInput.checked;
+            for (var i = 0; i < aInput.length; i++) {
+                aInput[i].checked = tInput.checked;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
