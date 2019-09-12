@@ -38,6 +38,21 @@
         .checked {
             background: green;
         }
+
+        .reverse {
+            cursor: pointer;
+            margin-left: 100px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+        }
+
+        span {
+            color: #fff;
+            margin: 0 10px;
+        }
     </style>
 </head>
 
@@ -45,6 +60,8 @@
     <div class="wrap">
         <div class="top item">
             <input type="checkbox">
+            <span class="txt">全选</span>
+            <span class="reverse">反选</span>
         </div>
         <div class="con">
             <div class="item">
@@ -61,26 +78,45 @@
             </div>
         </div>
     </div>
+    <p>sdf</p>
     <script>
+        var txt = document.querySelector('.txt');
         var oTop = document.querySelector('.top');
         var aInput = document.querySelectorAll('.item input');
         var aItem = document.querySelectorAll('.item');
-        for (var i = 0; i < aItem.length; i++) {
-            aItem[i].onclick = function () {
+        var rev = document.querySelector('.reverse');
+        rev.onclick = function (e) {
+            (e || window.event).cancelBubble = true;
+            for (var i = 1; i < aInput.length; i++) {
+                aInput[i].checked = !aInput[i].checked;
+                status();
+            }
+        }
+
+        for (var i = 1; i < aItem.length; i++) {
+            aItem[i].onclick = function (e) {
                 var oInput = this.querySelector('input');
-                !oInput.checked ? this.classList.add('checked') : this.classList.remove('checked');
                 oInput.checked = !oInput.checked;
+                status();
             }
         }
         oTop.onclick = function () {
-            var tInput = this.querySelector('input');
-            for (var i = 0; i < aItem.length; i++) {
-                !tInput.checked ? aItem[i].classList.add('checked') :
-                    aItem[i].classList.remove('checked');
+            var oInput = this.querySelector('input');
+            for (var i = 1; i < aInput.length; i++) {
+                aInput[i].checked = !oInput.checked;
             }
-            tInput.checked = !tInput.checked;
+            status();
+        }
+
+        function status() {
+            for (var i = 1, n = 0; i < aInput.length; i++) {
+                aInput[i].checked && n++;
+            }
+            aInput[0].checked = n == aInput.length - 1;
+            txt.innerHTML = aInput[0].checked ? "全不选" : "全选"
             for (var i = 0; i < aInput.length; i++) {
-                aInput[i].checked = tInput.checked;
+                var par = aInput[i].parentNode;
+                aInput[i].checked ? par.classList.add('checked') : par.classList.remove('checked');
             }
         }
     </script>
