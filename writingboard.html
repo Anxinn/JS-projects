@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 500px;
+            text-align: center;
+        }
+
+        .canvas {
+            border-radius: 10px;
+        }
+
+        .color {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        span {
+            width: 60px;
+            height: 30px;
+            border-radius: 4px;
+            margin: 40px 20px;
+            cursor: pointer;
+        }
+
+        span:nth-child(1) {
+            background: red;
+        }
+
+        span:nth-child(2) {
+            background: yellow;
+        }
+
+        span:nth-child(3) {
+            background: pink;
+        }
+
+        span:nth-child(4) {
+            background: purple;
+        }
+
+        span:nth-child(5) {
+            background: green;
+        }
+
+        button {
+            width: 100px;
+            height: 40px;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            background: red;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 50px;
+            font-weight: lighter;
+            text-transform: uppercase;
+            margin: 10px;
+            background: linear-gradient(to right, rgb(238, 255, 0), blue);
+            /* 上面一句要在下面两句的前面 */
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <canvas class="canvas"></canvas>
+        <p>writing board</p>
+        <div class="btn">
+            <div class="color">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <button type="button">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var oClear = document.querySelector('button');
+            var aColor = document.querySelectorAll('span');
+            var oWrap = document.querySelector('.wrap');
+            /** @type {HTMLCanvasElement} */
+            var canvas = document.querySelector('canvas');
+            canvas.width = 500;
+            canvas.height = 500;
+            var ctx = canvas.getContext('2d');
+            var oColor = 'black';
+            var isMouseDown = false;
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0,0,0,0.8)';
+                ctx.fillRect(0, 0, 500, 500);
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(10, 10, 480, 480);
+            }
+            draw();
+
+            function getStyle(obj, attr) {
+                return obj.getcurrentStyly ? obj.getcurrentStyly[attr] : getComputedStyle(obj)[attr];
+            }
+            for (var i = 0; i < aColor.length; i++) {
+                aColor[i].onclick = function () {
+                    oColor = getStyle(this, 'backgroundColor');
+                }
+            }
+
+            canvas.onmouseup = function (e) {
+                isMouseDown = false;
+            }
+            canvas.onmouseout = function (e) {
+                isMouseDown = false;
+            }
+            canvas.onmousedown = function (e) {
+                isMouseDown = true;
+                var e = e || window.event;
+                var x = e.clientX;
+                var y = e.clientY;
+                ctx.beginPath();
+                ctx.strokeStyle = oColor;
+                ctx.moveTo(x, y);
+                canvas.onmousemove = function (e) {
+                    if (isMouseDown) {
+                        var e = e || window.event;
+                        ctx.lineTo(e.clientX, e.clientY);
+                        ctx.lineWidth = 10;
+                        ctx.stroke();
+                    }
+                }
+            }
+            oClear.onclick = function () {
+                ctx.clearRect(10, 10, 480, 480);
+            }
+
+        }
+    </script>
+</body>
+
+</html>
