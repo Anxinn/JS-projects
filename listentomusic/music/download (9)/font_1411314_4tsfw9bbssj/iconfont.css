@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1568393695206'); /* IE9 */
+  src: url('iconfont.eot?t=1568393695206#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAP8AAsAAAAACAQAAAOvAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqDaIMjATYCJAMMCwgABCAFhG0HPBvvBsgOJaHAwABgAABlCNFaZm73sQQOSdYDaUAFqKpBVrjWVphW6Co0qsKwEf//s7m/yCzswsqaM+MxZ7HDMLJ/VITPczm9KXA2v52d2zU2jU17+1EvwDigQPfANlmBBOSB1DB2QUs8TqCunw1sJSyGB1Iyc1wgLgX8fJDKuOWG5lAVyhVLM8Q9iKsWvWJnANwF749/cAopUCglMKeuX4QWQcAX8Vwbb/nfIssjwDhdEGwVCbNAJg4qw/vwKDcLV1cdnObqsiwUUyX/NwgMmqu80S9eQZTBbGwGkzBf8EU4CsG3dl6B619FGTU8APhAbPcts1K3qoaEvLyiCad+YtmsVo3L11uvcadaZy9Xu3i15UrKxJJVrRqrN7dusipyq5eqrf2BaSlE3z5tfPZ+c5nU6eVLZwLndsaSZer24jxCTKbeZ+9VwytXeHD9emrrNd68TVY+S9fCnAMmcPx60ZwdZsuueSXsvOp59jqGJ1DEkSsktGy09F+2DsPmX3aXEUvCz1/3Xr0TYCuuXYs5cSUmq963xhkSboQfNXtUXDunXTpUejQ/Cntm+87e4Dd7dWK1ENOoqRkMbSyu0QDh9QMDbpYh1/trx1uXa4DkswQcPR0Zu/no3i/FJ4o/1z24/v7J5Xm7du4A9+GC3kSrHAksvbgtSc2nTL13CcYEO4uyt3HOLe3Vi9TE2Z8+fZEpErikzv15QbZlSueTvboPh9vGxs0Kyva+yOXKvTb9s3mmd5XWa45SgLfFSsm5KIp3wdI8a1UMBKy5HPbPj9x7aK6jsXKPo4oy5AE0ruCrcZugMCddw9Gv/IzHqJB5uQo+X6VkOACfC1/dhyMaczKkcwDVG40EP87YsS1rZtOTsmJwDEYx2Sb+WggaM/6uVuh0b7irp3MjoaonQaGiD0nVKJnZWZQ0mUNZ1TzqZoSvbtKFgYssDUzrBAjt1qPQ6gVJu7NkZu+ipNdblLUHjrrdUNmyyXgIiGAG5bOoiCyoJQWFdAVl+1gibOYifmVZPpM2B3wKYkSCJOlo55AvhqMKxEwxQ1TFd2JZiqQYupwMA6ehsjKaFDJ0CSpk7YpZVuhlb09VPcmukC4HwjIGko+FFCEVqEUSKESrQHndWUTh9VwIX6Uy+ZgGXVWdAmGICPonObLj0IEMd1R00t3KOSJV+JywWBQShUErRwoDQaTMytFIwupBJZBCLDvFAzJCXuxRJ6qrw255V/n77YE6c3kKMQzHOFC5ogWFiK6QCqIUBQAA') format('woff2'),
+  url('iconfont.woff?t=1568393695206') format('woff'),
+  url('iconfont.ttf?t=1568393695206') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1568393695206#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-voiceon:before {
+  content: "\e60a";
+}
+
+.icon-voiceoff:before {
+  content: "\e71a";
+}
+

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: rgb(27, 61, 95);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .8);
+        }
+
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            transition: 0.2s;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, .6);
+            transition: 0.5s;
+        }
+
+        a:hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .abs {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .center {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bg-player {
+            background-image: url(music/way.jpg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+
+        .bg-player-layer {
+            background: rgba(0, 0, 0, .3);
+            z-index: 2;
+        }
+
+        .wrap {
+            width: 36%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+            padding-top: 100px;
+        }
+
+        .songs li {
+            display: block;
+            padding: 18px 30px;
+            border-bottom: 1px solid rgba(75, 74, 74, 0.3);
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .songs li:nth-child(1) {
+            border-top: 1px solid rgba(75, 74, 74, 0.3);
+            cursor: default;
+
+        }
+
+        .songs li a {
+            padding: 6px;
+        }
+
+        .songs li:hover,
+        .songs .cur {
+            background: rgba(61, 61, 61, 0.2);
+        }
+
+        .songs li:nth-child(1):hover {
+            background: transparent;
+        }
+
+        .singer {
+            width: 160px;
+            height: 160px;
+            position: relative;
+            border-radius: 50%;
+            margin: 0 auto 100px;
+            cursor: pointer;
+        }
+
+        .singer>* {
+            position: absolute;
+        }
+
+        .bg-play {
+            height: 50px;
+            border-width: 50px 0 50px 70px;
+            border-style: solid;
+            border-color: transparent transparent transparent rgba(0, 0, 0, .5);
+        }
+
+        .bg-pause {
+            width: 60px;
+            height: 70px;
+            border-right: 10px solid rgba(75, 74, 74, 0.8);
+            border-left: 10px solid rgba(75, 74, 74, 0.8);
+        }
+
+        .hide,
+        .audio {
+            display: none;
+        }
+
+
+        .singer img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .circle-play {
+            animation: circle 5s infinite linear;
+        }
+
+        .circle:after {
+            content: '';
+            position: absolute;
+            left: -36px;
+            right: -36px;
+            top: -36px;
+            bottom: -36px;
+            background: linear-gradient(to right, rgba(250, 248, 248, 0.1), rgba(0, 0, 0, 0.9));
+            border-radius: 50%;
+            z-index: -10;
+            /* 建立一个伪border */
+        }
+
+        @keyframes circle {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .voice-on-off {
+            position: relative;
+            cursor: pointer;
+            position: absolute;
+            right: 100px;
+            bottom: 100px;
+        }
+
+        .voice-on-off .iconfont {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 20px;
+            color: rgb(182, 178, 178);
+        }
+
+        p {
+            margin-top: 100px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="font/iconfont.css">
+</head>
+
+<body>
+    <div class="bg-player abs"></div>
+    <div class="bg-player-layer abs"></div>
+    <div class="wrap">
+        <div class="singer">
+            <img src="music/way.jpg" class="abs">
+            <span class="bg-play center"></span>
+            <span class="bg-pause center hide"></span>
+            <div class="circle abs"></div>
+        </div>
+        <ul class="songs">
+            <li>
+                播放列表
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">1 On My <span>way</span></a>
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">2 Angie Miller - This Is <span>the life</span></a>
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">3 许嵩 - <span>断桥残雪</span></a>
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">4 The xx - <span>together</span></a>
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">5 SILICON ESTATE,mimi bay - If <span>everything</span> was good</a>
+            </li>
+            <li>
+                <span class="checkbox"></span>
+                <a href="#">6 The <span>down</span></a>
+            </li>
+        </ul>
+        <div class="voice-on-off">
+            <span class="iconfont icon-voiceon hide"></span>
+            <span class="iconfont icon-voiceoff"></span>
+        </div>
+        <p>自制一个简约的音乐播放，此刻已经是凌晨一点多</p>
+        <audio src="music/On My Way.mp3" class="audio" controls> </audio>
+    </div>
+
+    <script>
+        var ad = document.querySelector('.audio');
+        var aList = document.querySelectorAll('li');
+        var arrImg = [
+            'way', 'life', 'xue', 'Together', 'everything', 'down'
+        ]
+        var arrBodyColor = [
+            'rgb(27, 61, 95)',
+            'rgb(130, 130, 131)',
+            'rgb(76, 76, 77)',
+            'rgb(114, 113, 63)',
+            'rgb(80, 120, 158)'
+        ]
+        var aImg = document.querySelector('.singer img');
+        var onOffBtn = document.querySelectorAll('.center');
+        var singer = document.querySelector('.singer');
+        var bgPlayer = document.querySelector('.bg-player');
+        var oCircle = document.querySelector('.circle');
+        var voiceOn = document.querySelector('.voice-on-off');
+
+        var index = 0;
+        for (var i = 1; i < aList.length; i++) {
+            aList[i].index = i;
+            aList[i].onclick = function () {
+                for (var i = 1; i < aList.length; i++) {
+                    aList[i].classList.remove('cur');
+                }
+                this.classList.add('cur');
+                var link = this.querySelector('a span');
+                ad.src = 'music/' + link.innerHTML+ '.mp3';
+                ad.play();
+                aImg.src = 'music/' + arrImg[this.index - 1] + '.jpg';
+                bgPlayer.style.backgroundImage = 'url(music/' + arrImg[this.index - 1] + '.jpg)';
+                onOffBtn[0].classList.add('hide');
+                onOffBtn[1].classList.remove('hide');
+                document.body.style.background = arrBodyColor[this.index - 1];
+                oCircle.classList.add('circle-play');
+            }
+        }
+        var aLink = document.querySelectorAll('a');
+        singer.onclick = function () {
+            !ad.paused ? ad.pause() : ad.play();
+            oCircle.classList.toggle('circle-play');
+            for (var i = 0; i < onOffBtn.length; i++) {
+                onOffBtn[i].classList.toggle('hide');
+            }
+        }
+        var voiceBtn = voiceOn.querySelectorAll('span');
+        var onOff = false;
+        voiceOn.onclick = function () {
+            for (var i = 0; i < voiceBtn.length; i++) {
+                voiceBtn[i].classList.toggle('hide');
+            }
+            if (!onOff) {
+                ad.muted = true;
+                onOff = true;
+            } else {
+                ad.muted = false;
+                onOff = false;
+            }
+            // ad.muted = !ad.paused ? true : flase;
+        }
+    </script>
+</body>
+
+
+
+
+
+</body>
+
+</html>
