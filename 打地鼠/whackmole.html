@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-transform: capitalize;
+            text-align: center;
+            color: rgba(0, 0, 0, .5);
+            font-size: 20px;
+            font-weight: lighter;
+            height: 100vh;
+        }
+
+        h4 {
+            font-size: 30px;
+            font-weight: lighter;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            display: inline-block;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            font-size: 20px;
+            background: green;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .score {
+            margin: 10px 0;
+        }
+
+        .score span {
+            color: green;
+            font-weight: bold;
+            font-size: 30px;
+        }
+
+        .game {
+            width: 900px;
+            height: 720px;
+            margin: 10px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .over {
+            bottom: 50px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .hole {
+            width: 30%;
+            height: 48%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .hole:after {
+            content: '';
+            width: 100%;
+            height: 80px;
+            background: url(img1/dirt.jpg) no-repeat;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mole {
+            width: 100%;
+            height: 100%;
+            background: url(img1/mole.jpg) no-repeat;
+            background-position: center;
+            transform: translateY(360px);
+            cursor: pointer;
+        }
+
+        .mole.show {
+            transform: translateY(0);
+        }
+
+        .over {
+            color: red;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h4>whack a mole</h4>
+    <p class="score">得分：<span>0</span></p>
+    <button type="button">start</button>
+    <div class="game">
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+        <div class="hole">
+            <span class="mole"></span>
+        </div>
+    </div>
+    <p class="over">go</p>
+    <p class="ran"></p>
+    <script>
+        var aMole = Array.from(document.querySelectorAll('.mole'));
+        var btn = document.querySelector('button');
+        var timer = null;
+        var score = document.querySelector('p span');
+        var over = document.querySelector('.over');
+        var lastMole = 0;
+        var totle = 0;
+        var flag = true;
+
+        function doRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function changeStatus(gameStart) {
+            over.innerHTML = gameStart ? 'start' : 'game over';
+        }
+
+        function btnClick(btnDis) {
+            btn.disabled = btnDis ? false : true;
+        }
+
+        function addScore() {
+            if (flag) {
+                flag = false;
+                var curScore = parseInt(score.innerHTML);
+                curScore++;
+                score.innerHTML = curScore;
+            }
+        }
+
+        function getNext() {
+            nextMole = doRandom(0, 5);
+            if (nextMole === lastMole) {
+                getNext();
+            }
+            return nextMole;
+        }
+
+        function play() {
+            var curMole = getNext();
+            lastMole = curMole;
+            totle++;
+            var lost = totle - score.innerHTML;
+            if (lost >= 10) {
+                clearInterval(timer);
+                changeStatus(false);
+                btnClick(true);
+                return;
+            }
+            aMole[curMole].classList.add('show');
+            setTimeout(() => {
+                aMole[curMole].classList.remove('show');
+            }, 1000);
+            flag = true;
+        }
+
+        function startGame() {
+            clearInterval(timer);
+            originStatue();
+            timer = setInterval(play, 1000);
+        }
+
+        function originStatue() {
+            totle = 0;
+            score.innerHTML = 0;
+            btnClick(false);
+            changeStatus(true);
+        }
+        btn.addEventListener('click', startGame);
+        aMole.forEach(mole => mole.addEventListener('click', addScore));
+    </script>
+
+</body>
+
+</html>
