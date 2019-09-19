@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .inner {
+            width: 100%;
+            perspective: 500px;
+            white-space: nowrap;
+            overflow-x: scroll;
+            height: 80vh;
+            padding: 100px;
+            transform: scale(0.96);
+            border: 1px solid red;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .inner.active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .item {
+            display: inline-block;
+            width: 150px;
+            height: 400px;
+            line-height: 400px;
+            border: 2px solid gray;
+            text-align: center;
+            color: #fff;
+            font-weight: lighter;
+            font-size: 30px;
+            position: relative;
+            top:50%;
+            margin-top: -200px;
+        }
+
+        .item:nth-child(2n) {
+            transform: scaleX(1.4) rotateY(40deg);
+        }
+
+        .item:nth-child(2n+1) {
+            transform: scaleX(1.4) rotateY(-40deg);
+        }
+
+        p {
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+            font-weight: lighter;
+            text-transform: capitalize;
+        }
+
+        .item.active {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <p>scroll move and drag</p>
+
+    <div class="inner">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+        <div class="item">11</div>
+        <div class="item">12</div>
+        <div class="item">13</div>
+        <div class="item">14</div>
+        <div class="item">15</div>
+        <div class="item">16</div>
+        <div class="item">17</div>
+        <div class="item">18</div>
+        <div class="item">19</div>
+        <div class="item">20</div>
+        <div class="item">21</div>
+        <div class="item">22</div>
+    </div>
+    <script>
+        var inner = document.querySelector('.inner');
+        var aItem = Array.from(document.querySelectorAll('.item'));
+        var x = 0;
+        var dis;
+        var a = '';
+        var flag = false;
+        var oldCol;
+
+        function doRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function randomColor() {
+            a = 'rgba(' + doRandom(0, 255) + ',' + doRandom(0, 255) + ',' + doRandom(0, 255) + ',' + doRandom(3, 8) *
+                0.1 + ')';
+            return a;
+        }
+
+        function itemActive(item, iA) {
+            var newStr = oldCol.slice(0, -4);
+            item.style.background = iA ? newStr + '1)' : oldCol;
+            iA ? item.classList.add('active') : item.classList.remove('active');
+        }
+        aItem.forEach(item => item.style.background = randomColor());
+        aItem.forEach(item => item.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            oldCol = getComputedStyle(item)['backgroundColor'];
+            itemActive(item, true);
+        }));
+
+        function scoll(iScale) {
+            inner.addEventListener('mousedown', (e) => {
+                var e = e || window.event;
+                flag = true;
+                inner.classList.add('active');
+                x = e.clientX;
+                scollX = inner.scrollLeft;
+            });
+            inner.addEventListener('mousemove', (e) => {
+                if (flag) {
+                    e.preventDefault();
+                    // 阻止冒泡，图片或者字体不会因为move有颜色渲染;
+                    var e = e || window.event;
+                    dis = (e.clientX - x) * iScale;
+                    inner.scrollLeft = scollX - dis > 0 ? scollX - dis : 0;
+                }
+                // 也可以写成if(!flag) return;....
+            });
+            inner.addEventListener('mouseup', () => {
+                flag = false;
+                inner.classList.remove('active');
+                var ac = aItem.find(a => a.classList.contains('active'));
+                itemActive(ac, false);
+            })
+            inner.addEventListener('mouseout', () => {
+                if (inner !== this) return;
+                flag = false;
+                inner.classList.remove('active');
+            })
+        }
+        scoll(3);
+    </script>
+</body>
+
+</html>
