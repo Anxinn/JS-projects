@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 16px;
+            font-weight: lighter;
+            word-spacing: 4px;
+            letter-spacing: 2px;
+        }
+
+        ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            text-transform: uppercase;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        li {
+            width: 100px;
+            line-height: 50px;
+            margin: 20px 0;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            background: rgba(189, 188, 188, 0.3);
+            padding: 0 12px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .wrap {
+            width: 700px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 200px;
+        }
+
+        p {
+            line-height: 40px;
+        }
+
+        h2 {
+            font-weight: lighter;
+            text-align: center;
+            font-size: 30px;
+            text-transform: capitalize;
+            line-height: 60px;
+        }
+
+        .highlight {
+            position: absolute;
+            background: green;
+            z-index: -10;
+            transition: 0.1s ease-in-out;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="highlight"></div>
+        <h2>you can move your <a href="">highlight</a></h2>
+        <ul>
+            <li>
+                <a href>one</a>
+            </li>
+            <li>
+                <a href>two</a>
+            </li>
+            <li>
+                <a href>three</a>
+            </li>
+            <li>
+                <a href>four</a>
+            </li>
+            <li>
+                <a href>five</a>
+            </li>
+        </ul>
+        <p> if you park <a href>your</a> car in a wrong place, the traffic pliceman will soon find it, you will be lucky
+            if he lets you go without a ticket, but <a href>this</a> didnot always happen, the traffic plicemen
+            sometimes are polite, during the <a href>holiday </a> in ny, i <a href>received</a> a note on my car,sir, we
+            <a href>welcome </a> you to our city, it's a no parking area, you will enjoy your stay if your stay if you
+            pay <a href> attention </a> to our road sign. this note is only a <a href>reminder</a>. if you received a
+            request as this, you cannot fail to <a href>obay </a> it</p>
+    </div>
+    <script>
+        var bg = Array.from(document.querySelectorAll('a'));
+        var highlight = document.querySelector('.highlight');
+        var timer = null;
+
+        function handOver() {
+            clearTimeout(timer);
+            highlight.style.width = this.offsetWidth + 'px';
+            highlight.style.height = this.offsetHeight + 'px';
+            highlight.style.transform = 'translate(' + this.offsetLeft + 'px,' + this.offsetTop + 'px)';
+        }
+
+        function handOut() {
+            timer = setTimeout(function () {
+                highlight.style.cssText = '';
+            }, 1000)
+
+        }
+        bg.forEach(item => item.addEventListener('mouseover', handOver));
+        bg.forEach(item => item.addEventListener('mouseout', handOut));
+    </script>
+
+</body>
+
+</html>
