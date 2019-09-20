@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    p{
+        text-align: center;
+        margin-top: 100px;
+        font-size: 50px;
+        font-weight: lighter;
+    }
+  </style>
+
+</head>
+
+<body>
+    <p>click the keyboard to check the keycode</p>
+
+    <script>
+        var para = document.querySelector('p');
+        function checkKeycode(e){
+            para.innerHTML = e.keyCode;
+        }
+        window.addEventListener('keydown',checkKeycode);
+
+    </script>
+
+
+</body>
+
+</html>
